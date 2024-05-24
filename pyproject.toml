@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "fashion-insights"
+version = "0.0.1"
+description = "Insights into fashion data from second-hand marketplaces"
+authors = ["Sebastian Kreisel <seb@sebsprojects.com>"]
+readme = "README.md"
+packages = [{include = "fashion_insights"}]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+hdfs = "^2.7.3"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
