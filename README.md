@@ -39,14 +39,14 @@ The dataset contains more than 100,000 datapoints with a total size of more than
 
 ## Tasks
 
-- [ ] Simple Makefile project structure
-  - [ ] Add linting
+- [x] Simple Makefile project structure
+  - [x] Add flake8
   - [ ] Add black
   - [ ] Add import sorting
-  - [ ] Add mypy type checking
+  - [x] Add mypy type checking
 - [x] Config parsing
   -  [x] Simple JSON and INI from ENV
-  -  [ ] Allow flat INIs and transform parsed INI into a flat dict
+  -  [x] Allow flat INIs and transform parsed INI into a flat dict
   -  [ ] Read config from CMD arg
 - [ ] Data ingress
   - [ ] Function to read list of data point ids

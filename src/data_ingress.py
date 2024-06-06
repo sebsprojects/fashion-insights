@@ -8,8 +8,8 @@ import re
 class FashionDataPoint:
     """A data point comprising a unique id and images as raw binary data"""
     def __init__(self, uid: str, raw_image_data: list[bytes]) -> None:
-        self.uid = uid
-        self.raw_image_data: raw_image_data
+        self.uid: str = uid
+        self.raw_image_data: list[bytes] = raw_image_data
 
     def __repr__(self) -> str:
         return f"""
@@ -53,4 +53,6 @@ def list_data_point_uids(path: pathlib.Path, *, limit=-1) -> list[str]:
         if item.is_dir():
             data_point_uids.append(item.name)
         if 0 <= limit <= len(data_point_uids):
-            return data_point_uids
+            break
+    return data_point_uids
+

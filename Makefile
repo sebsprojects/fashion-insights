@@ -6,6 +6,10 @@ run:
 lint:
 	@flake8
 
+.PHONY: mypy
+mypy:
+	@mypy .
+
 .PHONY: test
 test:
 	@PYTHONPATH=./src python tests/run_tests.py

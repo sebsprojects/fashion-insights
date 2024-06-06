@@ -7,20 +7,23 @@ import configparser
 import json
 import sys
 from pathlib import Path
-
+from typing import Any
 
 CONFIG_ENV_KEY: str = "CONFIG_PATH"
-CONFIG: dict[str, any] = dict()
+CONFIG: dict[str, Any] = dict()
 
 
-def read_config_as_ini(config_contents: str) -> dict[str, any]:
+def read_config_as_ini(config_contents: str) -> dict[str, Any]:
     config = configparser.ConfigParser()
     config.read_string(config_contents)
     # TODO(Sebastian): convert the dict-like into a flat normal dict
-    return config
+    flat_dict = dict()
+    for key in config["config"].keys():
+        flat_dict[key] = config["config"][key]
+    return flat_dict
 
 
-def read_config_as_json(config_contents: str) -> dict[str, any]:
+def read_config_as_json(config_contents: str) -> dict[str, Any]:
     config = json.loads(config_contents)
     return config
 
@@ -31,7 +34,7 @@ def read_config_as_json(config_contents: str) -> dict[str, any]:
 # Using the os module:
 # file_extension = os.path.splitext()[1]
 # Using the pathlib module:
-def read_config_from_file(config_path: str) -> dict[str, any]:
+def read_config_from_file(config_path: str) -> dict[str, Any]:
     """Read the config file and parse it either as a INI or JSON if possible
     Raises:
         FileNotFoundError
@@ -56,7 +59,7 @@ def read_config_from_file(config_path: str) -> dict[str, any]:
         )
 
 
-def read_config_from_cmd() -> dict[str, any]:
+def read_config_from_cmd() -> dict[str, Any]:
     """Try to read the config file from a path provided as CMD arg
     Raises:
         RuntimeError
@@ -68,7 +71,7 @@ def read_config_from_cmd() -> dict[str, any]:
         raise RuntimeError('Config file path was not provided as a CMD arg')
 
 
-def read_config_from_env() -> dict[str, any]:
+def read_config_from_env() -> dict[str, Any]:
     """Try to read the config file from a path provided in ENV
     Raises:
         RuntimeError
@@ -82,7 +85,7 @@ def read_config_from_env() -> dict[str, any]:
         ) from e
 
 
-def read_config() -> dict[str, any]:
+def read_config() -> dict[str, Any]:
     """Read the config from a path provided either as ENV variable or CMD arg
     Raises:
         RuntimeError
