@@ -15,7 +15,8 @@ class TCFromEnv(TestCase):
             config.read_config_from_cmd()
 
     def test_valid_path(self):
-        with patch.dict(os.environ, {'CONFIG_PATH': 'config/dev.json'}):
+        # TODO: Perhaps mock this file?
+        with patch.dict(os.environ, {'CONFIG_PATH': 'config/example.json'}):
             config.read_config_from_env()
 
 

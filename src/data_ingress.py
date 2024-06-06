@@ -12,10 +12,15 @@ class FashionDataPoint:
         self.raw_image_data: raw_image_data
 
     def __repr__(self) -> str:
-        return f'FashionDataPoint with uid={self.uid} and {len(self.raw_image_data)} images'
+        return f"""
+            FashionDataPoint with uid={self.uid}
+            and {len(self.raw_image_data)} images"""
 
     @classmethod
-    def from_file_system_directory(cls, path: pathlib.Path) -> "FashionDataPoint":
+    def from_file_system_directory(
+            cls,
+            path: pathlib.Path
+    ) -> "FashionDataPoint":
         """Creates a data point by reading from the file system
         Raises:
             FileNotFoundError
@@ -36,11 +41,12 @@ class FashionDataPoint:
         return cls(uid, raw_image_data)
 
 
-def list_data_point_uids(path: pathlib.Path, *, limit = -1) -> list[str]:
+def list_data_point_uids(path: pathlib.Path, *, limit=-1) -> list[str]:
     """
     Args:
         path: The path to the parent directory containing data points
-        limit: Upper bound for the amount of data points read. A value of -1 means no upper bound
+        limit: Upper bound for the amount of data points read.
+            A value of -1 means no upper bound
     """
     data_point_uids = []
     for item in path.iterdir():
