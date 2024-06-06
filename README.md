@@ -1,7 +1,6 @@
 ## Overview
 
-This project explores image data from fashion marketplaces with **Python** and Apache **Hadoop** and **Spark**. The goal of this project is to
-- Learn more about Apache Hadoop and Spark
+This project explores image data from fashion marketplaces. The goal of this project is to revisit best-practices in Python and
 - Explore data engineering techniques
 - Produce insights and pretty plots for the data second-hand fashion marketplaces deal with
 
@@ -37,3 +36,18 @@ Omitting the actual image data, a data point that consists of three images of a 
 ```
 
 The dataset contains more than 100,000 datapoints with a total size of more than 300GB. Unfortunately, this data is proprietary and I can't publicly elaborate on its origins nor share it.
+
+## Tasks
+
+- [ ] Simple Makefile project structure
+  - [ ] Add linting
+  - [ ] Add black
+  - [ ] Add import sorting
+  - [ ] Add mypy type checking
+- [x] Config parsing
+  -  [x] Simple JSON and INI from ENV
+  -  [ ] Allow flat INIs and transform parsed INI into a flat dict
+  -  [ ] Read config from CMD arg
+- [ ] Data ingress
+  - [ ] Function to read list of data point ids
+  - [ ] Function to load one data point into a Python object

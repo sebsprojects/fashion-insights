@@ -1,2 +1,6 @@
 .venv
 .idea
+config/dev.*
+data/
+old/
+__pycache__

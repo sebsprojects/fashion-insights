@@ -8,7 +8,6 @@ packages = [{include = "fashion_insights"}]
 
 [tool.poetry.dependencies]
 python = "^3.11"
-hdfs = "^2.7.3"
 
 
 [build-system]
