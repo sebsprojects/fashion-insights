@@ -36,8 +36,8 @@ class FashionDataPoint:
             if item.is_file() and re.match(r'^image-[0,9]\.jpg', item.name):
                 try:
                     raw_image_data.append(item.read_bytes())
-                except Exception as e:
-                    print(f'Could not read data point: {e}')
+                except Exception as err:
+                    print(f'Could not read data point: {err}')
         return cls(uid, raw_image_data)
 
 
@@ -55,4 +55,3 @@ def list_data_point_uids(path: pathlib.Path, *, limit=-1) -> list[str]:
         if 0 <= limit <= len(data_point_uids):
             break
     return data_point_uids
-

@@ -10,20 +10,22 @@ from pathlib import Path
 from typing import Any
 
 CONFIG_ENV_KEY: str = "CONFIG_PATH"
-CONFIG: dict[str, Any] = dict()
+CONFIG: dict[str, Any] = {}
 
 
 def read_config_as_ini(config_contents: str) -> dict[str, Any]:
+    """Try parsing config_contents as a INI"""
     config = configparser.ConfigParser()
     config.read_string(config_contents)
     # TODO(Sebastian): convert the dict-like into a flat normal dict
-    flat_dict = dict()
+    flat_dict = {}
     for key in config["config"].keys():
         flat_dict[key] = config["config"][key]
     return flat_dict
 
 
 def read_config_as_json(config_contents: str) -> dict[str, Any]:
+    """Try parsing config_contents as a JSON"""
     config = json.loads(config_contents)
     return config
 
@@ -41,22 +43,21 @@ def read_config_from_file(config_path: str) -> dict[str, Any]:
         ValueError
     """
     try:
-        with open(config_path) as config_file:
+        with open(config_path, encoding='utf-8') as config_file:
             config_contents = config_file.read()
-    except FileNotFoundError as e:
+    except FileNotFoundError as err:
         raise FileNotFoundError(
             f'File at {config_path} (from ENV {CONFIG_ENV_KEY}) not found'
-        ) from e
+        ) from err
     file_extension = Path(config_path).suffix
     if file_extension == ".ini":
         return read_config_as_ini(config_contents)
-    elif file_extension == ".json":
+    if file_extension == ".json":
         return read_config_as_json(config_contents)
-    else:
-        raise ValueError(
-            f"""Config file ends in {file_extension}.
-            Only .ini and .json are supported."""
-        )
+    raise ValueError(
+        f"""Config file ends in {file_extension}.
+        Only .ini and .json are supported."""
+    )
 
 
 def read_config_from_cmd() -> dict[str, Any]:
@@ -67,8 +68,7 @@ def read_config_from_cmd() -> dict[str, Any]:
     if len(sys.argv) > 1:
         config_path = sys.argv[1]
         return read_config_from_file(config_path)
-    else:
-        raise RuntimeError('Config file path was not provided as a CMD arg')
+    raise RuntimeError('Config file path was not provided as a CMD arg')
 
 
 def read_config_from_env() -> dict[str, Any]:
@@ -79,10 +79,10 @@ def read_config_from_env() -> dict[str, Any]:
     try:
         config_path = os.environ[CONFIG_ENV_KEY]
         return read_config_from_file(config_path)
-    except Exception as e:
+    except Exception as err:
         raise RuntimeError(
             f'{CONFIG_ENV_KEY} is not among environment variables'
-        ) from e
+        ) from err
 
 
 def read_config() -> dict[str, Any]:

@@ -8,6 +8,7 @@ import data_ingress
 
 
 def main():
+    """Main"""
     config.configure()
     data_path = config.CONFIG['data_path']
     print(data_ingress.list_data_point_uids(pathlib.Path(data_path), limit=20))
