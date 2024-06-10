@@ -2,9 +2,9 @@
 
 """Read a config file and provide it as the CONFIG constant"""
 
-import os
 import configparser
 import json
+import os
 import sys
 from pathlib import Path
 from typing import Any
@@ -19,8 +19,8 @@ def read_config_as_ini(config_contents: str) -> dict[str, Any]:
     config.read_string(config_contents)
     # TODO(Sebastian): convert the dict-like into a flat normal dict
     flat_dict = {}
-    for key in config["config"].keys():
-        flat_dict[key] = config["config"][key]
+    for key in config["fashion_data"].keys():
+        flat_dict[key] = config["fashion_data"][key]
     return flat_dict
 
 
@@ -43,11 +43,11 @@ def read_config_from_file(config_path: str) -> dict[str, Any]:
         ValueError
     """
     try:
-        with open(config_path, encoding='utf-8') as config_file:
+        with open(config_path, encoding="utf-8") as config_file:
             config_contents = config_file.read()
     except FileNotFoundError as err:
         raise FileNotFoundError(
-            f'File at {config_path} (from ENV {CONFIG_ENV_KEY}) not found'
+            f"File at {config_path} (from ENV {CONFIG_ENV_KEY}) not found"
         ) from err
     file_extension = Path(config_path).suffix
     if file_extension == ".ini":
@@ -68,7 +68,7 @@ def read_config_from_cmd() -> dict[str, Any]:
     if len(sys.argv) > 1:
         config_path = sys.argv[1]
         return read_config_from_file(config_path)
-    raise RuntimeError('Config file path was not provided as a CMD arg')
+    raise RuntimeError("Config file path was not provided as a CMD arg")
 
 
 def read_config_from_env() -> dict[str, Any]:
@@ -81,7 +81,7 @@ def read_config_from_env() -> dict[str, Any]:
         return read_config_from_file(config_path)
     except Exception as err:
         raise RuntimeError(
-            f'{CONFIG_ENV_KEY} is not among environment variables'
+            f"{CONFIG_ENV_KEY} is not among environment variables"
         ) from err
 
 
@@ -98,7 +98,7 @@ def read_config() -> dict[str, Any]:
         except RuntimeError:
             # TODO(Sebastian): perhaps log that this didn't work
             pass
-    raise RuntimeError('Failed to read config from all sources (ENV and CMD)')
+    raise RuntimeError("Failed to read config from all sources (ENV and CMD)")
 
 
 def configure() -> None:

@@ -47,6 +47,16 @@ mypy-job:
   script:
     - mypy .
 
+black-job:
+  stage: test
+  script:
+    - black --check ./src ./tests
+
+isort-job:
+  stage: test
+  script:
+    - isort --check-only ./src ./tests
+
 deploy-job:      # This job runs in the deploy stage.
   stage: deploy  # It only runs when *both* jobs in the test stage complete successfully.
   environment: production

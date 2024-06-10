@@ -39,15 +39,23 @@ The dataset contains more than 100,000 datapoints with a total size of more than
 
 ## Tasks
 
-- [x] Simple Makefile project structure
-  - [x] Add flake8
-  - [ ] Add black
-  - [ ] Add import sorting
-  - [x] Add mypy type checking
-- [x] Config parsing
+- Project structure
+  - [x] Create a Makefile for common tasks 
+  - [x] Add flake8, mypy, black, isort
+  - [ ] Add a valid poetry config
+  - [ ] Add a valid pip config
+- Config parsing
   -  [x] Simple JSON and INI from ENV
   -  [x] Allow flat INIs and transform parsed INI into a flat dict
-  -  [ ] Read config from CMD arg
-- [ ] Data ingress
-  - [ ] Function to read list of data point ids
-  - [ ] Function to load one data point into a Python object
+  -  [x] Read config from CMD arg
+  -  [ ] Write additional tests
+- Data ingress
+  - [x] Generator for sequentially reading data point UIDs from the file system
+  - [x] Generator for sequentially reading data points from the file system
+  - [ ] Read and collect meta data for each data point
+  - [ ] Generator for sequentially reading UIDs / data points from GCS
+  - [ ] Write some tests
+- Data storage
+  - [ ] Upload to GCS
+- Data analysis
+  - [x] Average image count 
