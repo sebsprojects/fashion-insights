@@ -4,7 +4,7 @@ version = "0.0.1"
 description = "Insights into fashion data from second-hand marketplaces"
 authors = ["Sebastian Kreisel <seb@sebsprojects.com>"]
 readme = "README.md"
-packages = [{include = "fashion_insights"}]
+packages = [{include = "src"}]
 
 [tool.poetry.dependencies]
 python = "^3.11"

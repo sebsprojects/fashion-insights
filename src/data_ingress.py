@@ -60,7 +60,7 @@ class FashionDataIterator:
         )
 
 
-# TODO(Sebastian): The limit is not really necessary, can use islice
+# TODO(Sebastian): The limit is not really necessary, can use islice instead
 def iter_data_point_uids(data_dir_path: pathlib.Path, *, limit=-1) -> Iterator[str]:
     """
     Args:

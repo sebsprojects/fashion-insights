@@ -5,37 +5,33 @@
 import configparser
 import json
 import os
+import pathlib
 import sys
-from pathlib import Path
 from typing import Any
 
 CONFIG_ENV_KEY: str = "CONFIG_PATH"
 CONFIG: dict[str, Any] = {}
 
 
+# TODO(Sebastian): Document raises
 def read_config_as_ini(config_contents: str) -> dict[str, Any]:
     """Try parsing config_contents as a INI"""
     config = configparser.ConfigParser()
     config.read_string(config_contents)
-    # TODO(Sebastian): convert the dict-like into a flat normal dict
+    # Expected is a single section "fashion_data" that is transformed into a flat dict
     flat_dict = {}
     for key in config["fashion_data"].keys():
         flat_dict[key] = config["fashion_data"][key]
     return flat_dict
 
 
+# TODO(Sebastian): Document raises
 def read_config_as_json(config_contents: str) -> dict[str, Any]:
     """Try parsing config_contents as a JSON"""
     config = json.loads(config_contents)
     return config
 
 
-# The following has issues with no-extension paths and
-# double extension paths such as file.tar.gz
-# file_extension = config_path.split(".")[-1]
-# Using the os module:
-# file_extension = os.path.splitext()[1]
-# Using the pathlib module:
 def read_config_from_file(config_path: str) -> dict[str, Any]:
     """Read the config file and parse it either as a INI or JSON if possible
     Raises:
@@ -49,7 +45,7 @@ def read_config_from_file(config_path: str) -> dict[str, Any]:
         raise FileNotFoundError(
             f"File at {config_path} (from ENV {CONFIG_ENV_KEY}) not found"
         ) from err
-    file_extension = Path(config_path).suffix
+    file_extension = pathlib.Path(config_path).suffix
     if file_extension == ".ini":
         return read_config_as_ini(config_contents)
     if file_extension == ".json":
@@ -104,9 +100,11 @@ def read_config() -> dict[str, Any]:
 def configure() -> None:
     """
     Configure the config module: Load the config by reading a
-    config file from ENV or CMD
+    config file from ENV or CMD. This should be called exactly once at program
+    start
     Raises:
         RuntimeError
     """
     global CONFIG
-    CONFIG = read_config()
+    if not CONFIG:
+        CONFIG = read_config()

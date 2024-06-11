@@ -6,6 +6,7 @@ from data_ingress import FashionDataIterator
 
 
 def compute_average_image_count(it: FashionDataIterator) -> float:
+    """Compute the number of average images per data point in the data set"""
     total_count = 0
     num_data_points = 0
     for item in it:
